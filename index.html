@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<meta name="robots" content="noindex">
+
+<head>
+  <meta name="description" content="Ducky's Lobby">
+  <title>Ducky's Lobby</title>
+  <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+  <script src="https://sdk.altvr.com/libs/altspace.js/2.9.0/altspace.js"></script>
+  <script src="https://tweenjs.github.io/tween.js/src/Tween.js"></script>
+  <script src="https://cdn.rawgit.com/oOblik/AltspaceVR-Native-Components-JS/0.1.2/js/JSNativeComponents.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+  <script src="https://rawgit.com/mayognaise/aframe-gif-component/master/dist/aframe-gif-component.min.js"></script>
+  <script src="bake-vertex-light.js"></script>
+  <script src="clicks.js"></script>
+</head>
+<body>
+
+  <a-scene altspace="fullspace: true" vr-mode-ui="enabled: false" light="defaultLightsEnabled: true" sync-system='app: lob; author: ducky'>
+
+  	  <a-entity camera position="0 10 0" wasd-controls="fly: true" look-controls></a-entity>
+      <a-light id="bakelight" type="directional" intensity="20000" position="300 300 300" shadow="cast: true"></a-light>
+
+      <a-assets> 
+      <a-asset-item id="duck-mtl" src="duck.mtl"></a-asset-item>
+      <a-asset-item id="duck-obj" src="duck.obj"></a-asset-item>
+      <a-asset-item id="goose-mtl" src="goose.mtl"></a-asset-item>
+      <a-asset-item id="goose-obj" src="goose.obj"></a-asset-item>
+      <a-asset-item id="turtle-mtl" src="turtle.mtl"></a-asset-item>
+      <a-asset-item id="turtle-obj" src="turtle.obj"></a-asset-item>
+      <a-asset-item id="gate-obj" src="gate.obj"></a-asset-item>
+      <img id="duck-icon" src="duck.jpg"/>
+      <img id="goose-icon" src="goose.jpg"/>
+      <img id="turtle-icon" src="turtle.jpg"/>
+
+      <a-mixin id="goose" obj-model="obj: #goose-obj; mtl: #goose-mtl" collapse-model scale="0.1 0.1 0.1"></a-mixin>
+      <a-mixin id="goose-spine" rotation="0 -90 0" n-skeleton-parent="part: spine;" position="0.53 -0.4 -0.07" sync sync-n-skeleton-parent></a-mixin>
+      <a-mixin id="duck" obj-model="obj: #duck-obj; mtl: #duck-mtl" collapse-model scale="1 1 1"></a-mixin>
+      <a-mixin id="duck-spine" rotation="0 -90 0" n-skeleton-parent="part: spine;" position="0 -0.4 -0.05" sync sync-n-skeleton-parent></a-mixin>
+      <a-mixin id="turtle" obj-model="obj: #turtle-obj; mtl: #turtle-mtl" collapse-model scale="15 15 15"></a-mixin>
+      <a-mixin id="turtle-spine" rotation="0 -180 0" n-skeleton-parent="part: head;" position="0 0.0 0.1" sync sync-n-skeleton-parent></a-mixin>
+      
+      </a-assets>
+
+      <a-entity id="duck-spine-instantiator" geometry="primitive: box" material="src: #duck-icon" position='-0.81 0.005 -1.55' rotation="-25 0 0" scale="0.15 0.15 0.03" n-cockpit-parent instantiator="on: click; group: duckbb; mixin: duck duck-spine;" altspace-cursor-collider="enabled: true"></a-entity>
+      <a-entity id="goose-spine-instantiator" geometry="primitive: box" material="src: #goose-icon" position='-01.01 0.005 -1.55' rotation="-25 0 0" scale="0.15 0.15 0.03" n-cockpit-parent instantiator="on: click; group: duckbb; mixin: goose goose-spine;" altspace-cursor-collider="enabled: true"></a-entity>
+      <a-entity id="turtle-spine-instantiator" geometry="primitive: box" material="src: #turtle-icon" position='-0.61 0.005 -1.55' rotation="-25 0 0" scale="0.15 0.15 0.03" n-cockpit-parent instantiator="on: click; group: duckbb; mixin: turtle turtle-spine;" altspace-cursor-collider="enabled: true"></a-entity>
+
+      <a-entity id="base" obj-model="obj:key2.obj;mtl:key1.mtl" geometry="buffer: false" material="color: grey" scale="3 3 3" position=" 0 0 0" n-mesh-collider="type: environment; convex: false"></a-entity>
+
+      <a-cylinder position="0 1.5 0" scale="17 0.25 17" material="src: carp3.jpg; repeat: 20 20" n-mesh-collider="type: environment; convex: false"></a-cylinder>
+
+      
+      	
+      </a-entity>
+
+      <a-sphere scale="-1000 -1000 -1000" color="black"></a-sphere>
+
+      <a-entity position="-25 0 -25">
+      	<!--a-entity geometry="primitive: box" material="color: red; opacity: 0.1" position='25 5 25' rotation="0 0 0" scale="50 10 50" altspace-cursor-collider="enabled: false"></a-entity-->
+      <a-box id="bk1" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk2" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk3" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk4" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk5" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk6" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk7" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk8" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk9" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      <a-box id="bk10" scale="0.01 0.01 0.01" color="white" position="0 10 0">
+      	<a-animation begin="go" delay="0" attribute="scale" dur="450" fill="backwards" repeat="0" to="0.25 0.25 0.25"></a-animation>
+      </a-box>
+      </a-entity>
+
+
+
+     <!--a-entity position="152 9 -122">
+     <a-entity scale="4 4 4"  obj-model="obj:gate.obj" material="shader:gif;src:url(gate2.gif)" position="0 0 0" n-mesh-collider="type: environment; convex: false" geometry="buffer: false" bake-vertex-light>
+       <a-animation id="rot" attribute="rotation" dur="15000" delay="0" fill="backwards" repeat="indefinite" easing="linear" to="0 0 360"></a-animation>
+     </a-entity>
+     </a-entity-->
+
+    </a-scene>
+    <script>
+    	var randomx = Math.floor(Math.random()*50);
+    	var randomy = Math.floor(Math.random()*10);
+    	var randomz = Math.floor(Math.random()*50);
+
+    	function blocks() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk1').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk1").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk2').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk2").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk3').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk3").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk4').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk4").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk5').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk5").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk6').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk6").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk7').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk7").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk8').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk8").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk9').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk9").emit("go");
+          setTimeout(function() {
+          randomx = Math.floor(Math.random()*50);
+    	  randomy = Math.floor(Math.random()*10);
+    	  randomz = Math.floor(Math.random()*50);
+          document.querySelector('#bk10').setAttribute('position', {x: randomx, y: randomy, z: randomz});
+          document.querySelector("#bk10").emit("go");
+          }, 100);
+          }, 100);
+          }, 100);
+          }, 100);
+          }, 100);
+          }, 100);
+          }, 100);
+          }, 100);
+          }, 100);
+          }
+        setInterval(blocks, 500);    
+
+
+
+    </script>
+  </body>
+</html>
